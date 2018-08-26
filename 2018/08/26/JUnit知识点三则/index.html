@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="@Mock和@InjectMocks的区别Difference Between @Mock and @InjectMocks  @Mock创建一个mock，@InjectMocks创建一个实例并且将注入由@Mock或者@Spy注解生成的mock。 注意，需要通过@Runwith(MockitoJUnitRunner.class)或者`@Mockito.initMocks(this)`来初始化这些m">
+<meta name="keywords" content="JUnit,测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JUnit知识点三则">
+<meta property="og:url" content="http://yoursite.com/2018/08/26/JUnit知识点三则/index.html">
+<meta property="og:site_name" content="陈晓锋的学习笔记">
+<meta property="og:description" content="@Mock和@InjectMocks的区别Difference Between @Mock and @InjectMocks  @Mock创建一个mock，@InjectMocks创建一个实例并且将注入由@Mock或者@Spy注解生成的mock。 注意，需要通过@Runwith(MockitoJUnitRunner.class)或者`@Mockito.initMocks(this)`来初始化这些m">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-26T11:29:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JUnit知识点三则">
+<meta name="twitter:description" content="@Mock和@InjectMocks的区别Difference Between @Mock and @InjectMocks  @Mock创建一个mock，@InjectMocks创建一个实例并且将注入由@Mock或者@Spy注解生成的mock。 注意，需要通过@Runwith(MockitoJUnitRunner.class)或者`@Mockito.initMocks(this)`来初始化这些m">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/26/JUnit知识点三则/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JUnit知识点三则 | 陈晓锋的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈晓锋的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录一些日常接触到的专业知识</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/JUnit知识点三则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晓锋">
+      <meta itemprop="description" content="没有什么干货啦">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈晓锋的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JUnit知识点三则
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 18:32:06 / Modified: 19:29:56" itemprop="dateCreated datePublished" datetime="2018-08-26T18:32:06+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/测试/" itemprop="url" rel="index"><span itemprop="name">测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Mock和-InjectMocks的区别"><a href="#Mock和-InjectMocks的区别" class="headerlink" title="@Mock和@InjectMocks的区别"></a><code>@Mock</code>和<code>@InjectMocks</code>的区别</h2><p><a href="https://stackoverflow.com/questions/16467685/difference-between-mock-and-injectmocks/46727655" target="_blank" rel="noopener">Difference Between <code>@Mock</code> and <code>@InjectMocks</code></a></p>
+<blockquote>
+<p><code>@Mock</code>创建一个mock，<code>@InjectMocks</code>创建一个实例并且将注入由<code>@Mock</code>或者<code>@Spy</code>注解生成的mock。</p>
+<p>注意，需要通过<code>@Runwith(MockitoJUnitRunner.class)</code>或者<a href="mailto:`@Mockito.initMocks" target="_blank" rel="noopener">`@Mockito.initMocks</a>(this)`来初始化这些mocks并注入。</p>
+</blockquote>
+<p>如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(MockitoJUnitRunner.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SomeManagerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@InjectMocks</span></span><br><span class="line">    <span class="keyword">private</span> SomeManager someManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    <span class="keyword">private</span> SomeDependency someDependency; <span class="comment">// this will be injected into someManager</span></span><br><span class="line"></span><br><span class="line">     <span class="comment">//tests...</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般而言，是将需要测试的类，注解为<code>@InjectMocks</code>，将其依赖注解为<code>@Mock</code></p>
+<h2 id="MockitoJUnitRunner-class和SpringJUnit4ClassRunner-class的区别"><a href="#MockitoJUnitRunner-class和SpringJUnit4ClassRunner-class的区别" class="headerlink" title="MockitoJUnitRunner.class和SpringJUnit4ClassRunner.class的区别"></a><code>MockitoJUnitRunner.class</code>和<code>SpringJUnit4ClassRunner.class</code>的区别</h2><p>[<a href="https://stackoverflow.com/questions/31101693/using-mockitojunitrunner-class-instead-of-springjunit4classrunner-class" target="_blank" rel="noopener">Using MockitoJUnitRunner.class instead of SpringJUnit4ClassRunner.class</a>]</p>
+<blockquote>
+<p>如果只是简单的没有依赖的单元测试，那么没有必要使用<code>SpringJUnit4ClassRunner</code>。这个Runner能够生成复杂的Spring Context。你可以在这个Context中定义你自己的Application context configuration。</p>
+<p><code>SpringJUnit4ClassRunner</code>比较适合集成测试（integration test purposes）。</p>
+</blockquote>
+<h2 id="ArgumentCaptor-参数捕获器"><a href="#ArgumentCaptor-参数捕获器" class="headerlink" title="ArgumentCaptor(参数捕获器)"></a>ArgumentCaptor(参数捕获器)</h2><p><a href="http://hotdog.iteye.com/blog/916364" target="_blank" rel="noopener">学习Mocktio - 利用ArgumentCaptor（参数捕获器）捕获方法参数进行验证</a></p>
+<p>利用参数捕获器来捕获传入方法的参数进行验证。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">argumentCaptorTest</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    List mock = mock(List.class);  </span><br><span class="line">    List mock2 = mock(List.class);  </span><br><span class="line">    mock.add(<span class="string">"John"</span>);  </span><br><span class="line">    mock2.add(<span class="string">"Brian"</span>);  </span><br><span class="line">    mock2.add(<span class="string">"Jim"</span>);  </span><br><span class="line">      </span><br><span class="line">    ArgumentCaptor argument = ArgumentCaptor.forClass(String.class);  </span><br><span class="line">      </span><br><span class="line">    verify(mock).add(argument.capture());  </span><br><span class="line">    assertEquals(<span class="string">"John"</span>, argument.getValue());  </span><br><span class="line">      </span><br><span class="line">    verify(mock2, times(<span class="number">2</span>)).add(argument.capture());  </span><br><span class="line">  </span><br><span class="line">    assertEquals(<span class="string">"Jim"</span>, argument.getValue());  </span><br><span class="line">    assertArrayEquals(<span class="keyword">new</span> Object[]&#123;<span class="string">"Brian"</span>,<span class="string">"Jim"</span>&#125;,argument.getAllValues().toArray());  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从实践中看，<code>argument.capture()</code>中捕获的是对象的引用，而不是复制对象，因而参数中如果对同一对象的两次使用，即便两次之中，对象发生了改变，捕获器也不能感知。如下文所示：</p>
+<p><a href="https://stackoverflow.com/questions/11984128/capturing-previous-values-to-verify-mock-object" target="_blank" rel="noopener">capturing previous values to verify mock object</a></p>
+<p>利用<code>ArgumentCaptor</code>也可以用来断言日志输出，也就是mock一个appender，捕获appender的输入（即，log信息），利用<code>ArgumentCaptor</code>对日志进行重放，并断言，达到测试的目的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> chenxiaofeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@created</span> 18/8/24.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Import</span>(&#123; TaskPersistenseService.class, ExecService.class &#125;)</span><br><span class="line"><span class="meta">@RunWith</span>(MockitoJUnitRunner.class)</span><br><span class="line"><span class="meta">@Rollback</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TaskFacadeTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    <span class="keyword">private</span> TaskPersistenseService taskPersistenseService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    <span class="keyword">private</span> ExecService execService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@InjectMocks</span></span><br><span class="line">    <span class="keyword">private</span> TaskFacade taskFacade;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Long MOCK_TASK_ID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Long MOCK_ROUTER_ID = <span class="number">10L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">withOutExpExe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        procedure(<span class="keyword">null</span>);</span><br><span class="line">        verifyLastMessages(<span class="string">"get taskId: 1, start run the task async"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">procedure</span><span class="params">(Long timeMillis)</span> </span>&#123;</span><br><span class="line">        when(taskPersistenseService.addNewTask(any(), anyInt())).thenReturn(MOCK_TASK_ID);</span><br><span class="line">        doNothing().when(execService).execTaskAsync(anyLong(), any());</span><br><span class="line"></span><br><span class="line">        TaskModel taskModel = <span class="keyword">new</span> TaskModel();</span><br><span class="line">        taskModel.setRouterId(MOCK_ROUTER_ID);</span><br><span class="line">        taskModel.setExpExeMillis(timeMillis);</span><br><span class="line"></span><br><span class="line">        Assert.assertTrue(MOCK_TASK_ID.equals(taskFacade.submitTask(taskModel)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mock</span></span><br><span class="line">    <span class="keyword">private</span> Appender mockAppender;</span><br><span class="line">    <span class="meta">@Captor</span></span><br><span class="line">    <span class="keyword">private</span> ArgumentCaptor&lt;LogEvent&gt; captorLoggingEvent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Logger logger;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">// prepare the appender so Log4j likes it</span></span><br><span class="line">        when(mockAppender.getName()).thenReturn(<span class="string">"MockAppender"</span>);</span><br><span class="line">        when(mockAppender.isStarted()).thenReturn(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//when(mockAppender.isStopped()).thenReturn(false);</span></span><br><span class="line"></span><br><span class="line">        logger = (Logger) LogManager.getRootLogger();</span><br><span class="line">        logger.addAppender(mockAppender);</span><br><span class="line">        logger.setLevel(Level.INFO);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// the appender we added will sit in the singleton logger forever</span></span><br><span class="line">        <span class="comment">// slowing future things down - so remove it</span></span><br><span class="line">        logger.removeAppender(mockAppender);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// handy function to inspect the messages sent to the logger</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">verifyLastMessages</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        verify(mockAppender, atLeastOnce()).append((LogEvent) captorLoggingEvent.capture());</span><br><span class="line">        <span class="comment">//capture 只抓住了 LogEvent的引用，所以所有的值，都变成最后一次的 log</span></span><br><span class="line">        assertEquals(message, captorLoggingEvent.getValue().getMessage().getFormattedMessage());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JUnit/" rel="tag"># JUnit</a>
+          
+            <a href="/tags/测试/" rel="tag"># 测试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/21/Apache-Commons-Chain/" rel="next" title="Apache Commons Chain">
+                <i class="fa fa-chevron-left"></i> Apache Commons Chain
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">陈晓锋</p>
+              <p class="site-description motion-element" itemprop="description">没有什么干货啦</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mock和-InjectMocks的区别"><span class="nav-number">1.</span> <span class="nav-text">@Mock和@InjectMocks的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MockitoJUnitRunner-class和SpringJUnit4ClassRunner-class的区别"><span class="nav-number">2.</span> <span class="nav-text">MockitoJUnitRunner.class和SpringJUnit4ClassRunner.class的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArgumentCaptor-参数捕获器"><span class="nav-number">3.</span> <span class="nav-text">ArgumentCaptor(参数捕获器)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晓锋</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

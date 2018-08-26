@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="lombok原理分析和功能实现 原理 定义编译期的注解 利用JSR269 API（Pluggable Annotation Processing API）创建编译期的注解处理器 利用tools.jar的javac api处理AST（抽象语法树） 将功能注册jar包  实现创建Getter注解的处理器继承AbstractProcessor这个类，基本的框架大体如下：12345678910111213">
+<meta name="keywords" content="注解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lombok原理简析">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/lombok原理简析/index.html">
+<meta property="og:site_name" content="陈晓锋的学习笔记">
+<meta property="og:description" content="lombok原理分析和功能实现 原理 定义编译期的注解 利用JSR269 API（Pluggable Annotation Processing API）创建编译期的注解处理器 利用tools.jar的javac api处理AST（抽象语法树） 将功能注册jar包  实现创建Getter注解的处理器继承AbstractProcessor这个类，基本的框架大体如下：12345678910111213">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-26T14:13:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lombok原理简析">
+<meta name="twitter:description" content="lombok原理分析和功能实现 原理 定义编译期的注解 利用JSR269 API（Pluggable Annotation Processing API）创建编译期的注解处理器 利用tools.jar的javac api处理AST（抽象语法树） 将功能注册jar包  实现创建Getter注解的处理器继承AbstractProcessor这个类，基本的框架大体如下：12345678910111213">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/14/lombok原理简析/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>lombok原理简析 | 陈晓锋的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈晓锋的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录一些日常接触到的专业知识</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/14/lombok原理简析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晓锋">
+      <meta itemprop="description" content="没有什么干货啦">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈晓锋的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">lombok原理简析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-14 22:22:34" itemprop="dateCreated datePublished" datetime="2018-08-14T22:22:34+08:00">2018-08-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-26 22:13:48" itemprop="dateModified" datetime="2018-08-26T22:13:48+08:00">2018-08-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Utils/" itemprop="url" rel="index"><span itemprop="name">Utils</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://juejin.im/entry/5a390ba76fb9a0451e3fed7c" target="_blank" rel="noopener">lombok原理分析和功能实现</a></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>定义编译期的注解</li>
+<li>利用JSR269 API（Pluggable Annotation Processing API）创建编译期的注解处理器</li>
+<li>利用tools.jar的javac api处理AST（抽象语法树）</li>
+<li>将功能注册jar包</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="创建Getter注解的处理器"><a href="#创建Getter注解的处理器" class="headerlink" title="创建Getter注解的处理器"></a>创建Getter注解的处理器</h4><p>继承<a href="https://blog.csdn.net/jeasonlzy/article/details/74273851" target="_blank" rel="noopener">AbstractProcessor</a>这个类，基本的框架大体如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mythsman.test;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.processing.*;</span><br><span class="line"><span class="keyword">import</span> javax.lang.model.SourceVersion;</span><br><span class="line"><span class="keyword">import</span> javax.lang.model.element.TypeElement;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="meta">@SupportedAnnotationTypes</span>(<span class="string">"com.mythsman.test.Getter"</span>)</span><br><span class="line"><span class="meta">@SupportedSourceVersion</span>(SourceVersion.RELEASE_8)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetterProcessor</span> <span class="keyword">extends</span> <span class="title">AbstractProcessor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ProcessingEnvironment processingEnv)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.init(processingEnv);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">process</span><span class="params">(Set&lt;? extends TypeElement&gt; annotations, RoundEnvironment roundEnv)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要着重实现两个方法：</p>
+<ul>
+<li>init : 通过ProcessingEnvironment来获取编译阶段的一些环境信息</li>
+<li>process：主要实现具体逻辑的地方，也就是对AST进行处理的地方</li>
+</ul>
+<h4 id="init方法"><a href="#init方法" class="headerlink" title="init方法"></a>init方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Messager messager;</span><br><span class="line"><span class="keyword">private</span> JavacTrees trees;</span><br><span class="line"><span class="keyword">private</span> TreeMaker treeMaker;</span><br><span class="line"><span class="keyword">private</span> Names names;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ProcessingEnvironment processingEnv)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.init(processingEnv);</span><br><span class="line">    <span class="keyword">this</span>.messager = processingEnv.getMessager();</span><br><span class="line">    <span class="keyword">this</span>.trees = JavacTrees.instance(processingEnv);</span><br><span class="line">    Context context = ((JavacProcessingEnvironment) processingEnv).getContext();</span><br><span class="line">    <span class="keyword">this</span>.treeMaker = TreeMaker.instance(context);</span><br><span class="line">    <span class="keyword">this</span>.names = Names.instance(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="process方法"><a href="#process方法" class="headerlink" title="process方法"></a>process方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">process</span><span class="params">(Set&lt;? extends TypeElement&gt; annotations, RoundEnvironment roundEnv)</span> </span>&#123;</span><br><span class="line">    Set&lt;? extends Element&gt; set = roundEnv.getElementsAnnotatedWith(Getter.class);</span><br><span class="line">    set.forEach(element -&gt; &#123;</span><br><span class="line">        JCTree jcTree = trees.getTree(element);</span><br><span class="line">        jcTree.accept(<span class="keyword">new</span> TreeTranslator() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visitClassDef</span><span class="params">(JCTree.JCClassDecl jcClassDecl)</span> </span>&#123;</span><br><span class="line">                List&lt;JCTree.JCVariableDecl&gt; jcVariableDeclList = List.nil();</span><br><span class="line">                <span class="keyword">for</span> (JCTree tree : jcClassDecl.defs) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (tree.getKind().equals(Tree.Kind.VARIABLE)) &#123;</span><br><span class="line">                        JCTree.JCVariableDecl jcVariableDecl = (JCTree.JCVariableDecl) tree;</span><br><span class="line">                        jcVariableDeclList = jcVariableDeclList.append(jcVariableDecl);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                jcVariableDeclList.forEach(jcVariableDecl -&gt; &#123;</span><br><span class="line">                    messager.printMessage(Diagnostic.Kind.NOTE, jcVariableDecl.getName() + <span class="string">" has been processed"</span>);</span><br><span class="line">                    jcClassDecl.defs = jcClassDecl.defs.prepend(makeGetterMethodDecl(jcVariableDecl));</span><br><span class="line">                &#125;);</span><br><span class="line">                <span class="keyword">super</span>.visitClassDef(jcClassDecl);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来再实现makeGetterMethodDecl方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> JCTree.<span class="function">JCMethodDecl <span class="title">makeGetterMethodDecl</span><span class="params">(JCTree.JCVariableDecl jcVariableDecl)</span> </span>&#123;</span><br><span class="line">    ListBuffer&lt;JCTree.JCStatement&gt; statements = <span class="keyword">new</span> ListBuffer&lt;&gt;();</span><br><span class="line">    statements.append(treeMaker.Return(treeMaker.Select(treeMaker.Ident(names.fromString(<span class="string">"this"</span>)), jcVariableDecl.getName())));</span><br><span class="line">    JCTree.JCBlock body = treeMaker.Block(<span class="number">0</span>, statements.toList());</span><br><span class="line">    <span class="keyword">return</span> treeMaker.MethodDef(treeMaker.Modifiers(Flags.PUBLIC), getNewMethodName(jcVariableDecl.getName()), jcVariableDecl.vartype, List.nil(), List.nil(), List.nil(), body, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> Name <span class="title">getNewMethodName</span><span class="params">(Name name)</span> </span>&#123;</span><br><span class="line">    String s = name.toString();</span><br><span class="line">    <span class="keyword">return</span> names.fromString(<span class="string">"get"</span> + s.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + s.substring(<span class="number">1</span>, name.length()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/注解/" rel="tag"># 注解</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/13/MySQL必知必会/" rel="next" title="MySQL必知必会">
+                <i class="fa fa-chevron-left"></i> MySQL必知必会
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/19/Guava-User-Guide/" rel="prev" title="Guava User Guide">
+                Guava User Guide <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">陈晓锋</p>
+              <p class="site-description motion-element" itemprop="description">没有什么干货啦</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Getter注解的处理器"><span class="nav-number">2.1.</span> <span class="nav-text">创建Getter注解的处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#init方法"><span class="nav-number">2.2.</span> <span class="nav-text">init方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#process方法"><span class="nav-number">2.3.</span> <span class="nav-text">process方法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈晓锋</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
