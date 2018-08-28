@@ -108,25 +108,24 @@
 
 
 
-  <meta name="description" content="ApplicationReadEvent 事件的来源是SpringApplication，事件发生时，所有的初始化步骤都已经完成。 用法12345678910111213@Componentpublic class ApplicationReadyEventListener implements ApplicationListener&amp;lt;ApplicationReadyEvent&amp;gt;, O">
-<meta name="keywords" content="SpringContext">
+  <meta name="description" content="一个组件带上@Conditional注解或者实现了Condition接口都标识着该组件只在特定条件满足的情况下，才会注册（eligible for registration）。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ApplicationReadyEvent">
-<meta property="og:url" content="http://yoursite.com/2018/08/08/ApplicationReadyEvent/index.html">
+<meta property="og:title" content="Spring @Conditional注解">
+<meta property="og:url" content="http://yoursite.com/2018/08/28/Spring-Conditional注解/index.html">
 <meta property="og:site_name" content="陈晓锋的学习笔记">
-<meta property="og:description" content="ApplicationReadEvent 事件的来源是SpringApplication，事件发生时，所有的初始化步骤都已经完成。 用法12345678910111213@Componentpublic class ApplicationReadyEventListener implements ApplicationListener&amp;lt;ApplicationReadyEvent&amp;gt;, O">
+<meta property="og:description" content="一个组件带上@Conditional注解或者实现了Condition接口都标识着该组件只在特定条件满足的情况下，才会注册（eligible for registration）。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-26T14:21:52.000Z">
+<meta property="og:updated_time" content="2018-08-28T15:38:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ApplicationReadyEvent">
-<meta name="twitter:description" content="ApplicationReadEvent 事件的来源是SpringApplication，事件发生时，所有的初始化步骤都已经完成。 用法12345678910111213@Componentpublic class ApplicationReadyEventListener implements ApplicationListener&amp;lt;ApplicationReadyEvent&amp;gt;, O">
+<meta name="twitter:title" content="Spring @Conditional注解">
+<meta name="twitter:description" content="一个组件带上@Conditional注解或者实现了Condition接口都标识着该组件只在特定条件满足的情况下，才会注册（eligible for registration）。">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/08/ApplicationReadyEvent/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/28/Spring-Conditional注解/"/>
 
 
 
@@ -136,7 +135,7 @@
   };
 </script>
 
-  <title>ApplicationReadyEvent | 陈晓锋的学习笔记</title>
+  <title>Spring @Conditional注解 | 陈晓锋的学习笔记</title>
   
 
 
@@ -293,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/ApplicationReadyEvent/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/Spring-Conditional注解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晓锋">
@@ -310,7 +309,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ApplicationReadyEvent
+          <h1 class="post-title" itemprop="name headline">Spring @Conditional注解
               
             
           </h1>
@@ -335,46 +334,16 @@
                 
               
 
-              <time title="Created: 2018-08-08 09:59:35" itemprop="dateCreated datePublished" datetime="2018-08-08T09:59:35+08:00">2018-08-08</time>
+              <time title="Created: 2018-08-28 23:28:36 / Modified: 23:38:22" itemprop="dateCreated datePublished" datetime="2018-08-28T23:28:36+08:00">2018-08-28</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-08-26 22:21:52" itemprop="dateModified" datetime="2018-08-26T22:21:52+08:00">2018-08-26</time>
               
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spring框架/" itemprop="url" rel="index"><span itemprop="name">Spring框架</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -384,8 +353,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/08/ApplicationReadyEvent/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/08/ApplicationReadyEvent/" itemprop="commentCount"></span>
+                <a href="/2018/08/28/Spring-Conditional注解/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/28/Spring-Conditional注解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -393,7 +362,7 @@
 
           
           
-             <span id="/2018/08/08/ApplicationReadyEvent/" class="leancloud_visitors" data-flag-title="ApplicationReadyEvent">
+             <span id="/2018/08/28/Spring-Conditional注解/" class="leancloud_visitors" data-flag-title="Spring @Conditional注解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -424,10 +393,26 @@
       
 
       
-        <p><a href="https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/context/event/ApplicationReadyEvent.html" target="_blank" rel="noopener">ApplicationReadEvent</a></p>
-<p>事件的来源是SpringApplication，事件发生时，所有的初始化步骤都已经完成。</p>
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationReadyEventListener</span> <span class="keyword">implements</span> <span class="title">ApplicationListener</span>&lt;<span class="title">ApplicationReadyEvent</span>&gt;, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(ApplicationReadyEvent applicationReadyEvent)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"############started"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Ordered.LOWEST_PRECEDENCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="配合EventListener使用"><a href="#配合EventListener使用" class="headerlink" title="配合EventListener使用"></a>配合EventListener使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassWithEventListeners</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@EventListener</span>(&#123;ApplicationReadyEvent.class&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">contextRefreshedEvent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"event happened"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>一个组件带上<code>@Conditional</code>注解或者实现了<code>Condition</code>接口都标识着该组件只在特定条件满足的情况下，才会注册（eligible for registration）。</p>
+<a id="more"></a>
+<blockquote>
+<p>注意：<code>@Conditional</code>注解不可继承。</p>
+</blockquote>
+<p>如果一个<code>@Configuration</code>类被标注为<code>@Conditional</code>，则该类的所有的<code>@Bean</code>方法, <code>@Import</code>注解，和<code>@ComponentScan</code>注解，都依从于该条件。</p>
+<p>示例：</p>
+<h4 id="条件类"><a href="#条件类" class="headerlink" title="条件类"></a>条件类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 这里写自己的逻辑，只有返回true，才会启用配置</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Conditional;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Conditional</span>(MyCondition.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Serializable <span class="title">createSerializable</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"======000"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@Conditional(MyCondition.class)</code><br>这句代码可以标注在类上面，表示该类下面的所有<code>@Bean</code>都会启用配置，也可以标注在方法上面，只是对该方法启用配置</p>
+<p>除了自己自定义Condition之外，Spring还提供了很多Condition给我们用：</p>
+<ul>
+<li><code>@ConditionalOnBean</code>（仅仅在当前上下文中存在某个对象时，才会实例化一个Bean）</li>
+<li><code>@ConditionalOnClass</code>（某个class位于类路径上，才会实例化一个Bean）</li>
+<li><code>@ConditionalOnExpression</code>（当表达式为true的时候，才会实例化一个Bean）</li>
+<li><code>@ConditionalOnMissingBean</code>（仅仅在当前上下文中不存在某个对象时，才会实例化一个Bean）</li>
+<li><code>@ConditionalOnMissingClass</code>（某个class类路径上不存在的时候，才会实例化一个Bean）</li>
+<li><code>@ConditionalOnNotWebApplication</code>（不是web应用）</li>
+</ul>
+
       
     </div>
 
@@ -445,12 +430,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/SpringContext/" rel="tag"># SpringContext</a>
-          
-        </div>
-      
 
       
       
@@ -460,8 +439,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/" rel="next" title="log4j2不使用配置文件，动态生成logger对象">
-                <i class="fa fa-chevron-left"></i> log4j2不使用配置文件，动态生成logger对象
+              <a href="/2018/08/27/Mock和Spy的区别/" rel="next" title="Mock和Spy的区别">
+                <i class="fa fa-chevron-left"></i> Mock和Spy的区别
               </a>
             
           </div>
@@ -469,10 +448,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/09/微信静默授权/" rel="prev" title="微信静默授权">
-                微信静默授权 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -649,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配合EventListener使用"><span class="nav-number">2.</span> <span class="nav-text">配合EventListener使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#条件类"><span class="nav-number">1.</span> <span class="nav-text">条件类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置类"><span class="nav-number">2.</span> <span class="nav-text">配置类</span></a></li></ol></div>
             
 
           </div>
