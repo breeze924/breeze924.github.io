@@ -108,23 +108,27 @@
 
 
 
-  <meta name="description" content="没有什么干货啦">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈晓锋的学习笔记">
-<meta property="og:url" content="http://yoursite.com/archives/2018/08/page/2/index.html">
+  <meta name="description" content="git reset mixed/soft/hard的区别 git reset至少会更改当前分支（HEAD）的指向。--mixed和--soft的区别在于是否改变了索引（index）。">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git reset">
+<meta property="og:url" content="http://yoursite.com/2018/08/29/git-reset/index.html">
 <meta property="og:site_name" content="陈晓锋的学习笔记">
-<meta property="og:description" content="没有什么干货啦">
+<meta property="og:description" content="git reset mixed/soft/hard的区别 git reset至少会更改当前分支（HEAD）的指向。--mixed和--soft的区别在于是否改变了索引（index）。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/git-reset.jpg">
+<meta property="og:updated_time" content="2018-08-29T14:30:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈晓锋的学习笔记">
-<meta name="twitter:description" content="没有什么干货啦">
+<meta name="twitter:title" content="git reset">
+<meta name="twitter:description" content="git reset mixed/soft/hard的区别 git reset至少会更改当前分支（HEAD）的指向。--mixed和--soft的区别在于是否改变了索引（index）。">
+<meta name="twitter:image" content="http://yoursite.com/images/git-reset.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2018/08/page/2/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/29/git-reset/"/>
 
 
 
@@ -134,7 +138,7 @@
   };
 </script>
 
-  <title>Archive | 陈晓锋的学习笔记</title>
+  <title>git reset | 陈晓锋的学习笔记</title>
   
 
 
@@ -181,7 +185,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,7 +242,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
   </li>
@@ -250,22 +254,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -291,158 +279,220 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/git-reset/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晓锋">
+      <meta itemprop="description" content="没有什么干货啦">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈晓锋的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">git reset
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-29 21:59:00 / Modified: 22:30:11" itemprop="dateCreated datePublished" datetime="2018-08-29T21:59:00+08:00">2018-08-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-        Um..! 15 posts in total. Keep on posting.
-      </span>
-      
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/29/git-reset/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/29/git-reset/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2018/08/29/git-reset/" class="leancloud_visitors" data-flag-title="git reset">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/09/微信静默授权/" itemprop="url">
-              
-                <span itemprop="name">微信静默授权</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-09T23:23:49+08:00"
-              content="2018-08-09" >
-          08-09
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/08/ApplicationReadyEvent/" itemprop="url">
-              
-                <span itemprop="name">ApplicationReadyEvent</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-08T09:59:35+08:00"
-              content="2018-08-08" >
-          08-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/" itemprop="url">
-              
-                <span itemprop="name">log4j2不使用配置文件，动态生成logger对象</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-06T21:19:14+08:00"
-              content="2018-08-06" >
-          08-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <p><a href="https://stackoverflow.com/questions/3528245/whats-the-difference-between-git-reset-mixed-soft-and-hard" target="_blank" rel="noopener">git reset mixed/soft/hard的区别</a></p>
+<p><code>git reset</code>至少会更改当前分支（<code>HEAD</code>）的指向。<code>--mixed</code>和<code>--soft</code>的区别在于是否改变了索引（index）。</p>
+<a id="more"></a>
+<p>如，我们有如下commits:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- A - B - C (master)</span><br></pre></td></tr></table></figure></p>
+<p>此时，<code>HEAD</code>指向<code>C</code>并且索引也匹配了<code>C</code>。</p>
+<h4 id="git-reset-soft"><a href="#git-reset-soft" class="headerlink" title="git reset --soft"></a><code>git reset --soft</code></h4><p>当我们使用<code>git reset --soft B</code>，<code>master</code>(也就是<code>HEAD</code>)指向了<code>B</code>，但是索引仍然有<code>C</code>的改动，<code>git status</code>显示这些改动是staged的。此时如果再运行<code>git commit</code>，我们会得到一个新的commit，它的改动同<code>C</code>是一样的。</p>
+<h4 id="git-reset-mixed"><a href="#git-reset-mixed" class="headerlink" title="git reset --mixed"></a><code>git reset --mixed</code></h4><p>如果我们使用<code>git reset --mixed B</code>(<code>--mixed</code>是默认的选项。再一次地，<code>master</code>和<code>HEAD</code>都指向了<code>B</code>，但是索引也同时匹配了<code>B</code>。此时如果运行<code>git commit</code>，则没有改动会被提交。因为索引和<code>HEAD</code>是匹配的。在工作目录中，我们还有这些改动，但是这些改动是unstaged。为了提交他们，我们需要运行<code>git add</code>然后再提交。</p>
+<h4 id="git-reset-hard"><a href="#git-reset-hard" class="headerlink" title="git reset --hard"></a><code>git reset --hard</code></h4><p><code>git reset --hard</code>和<code>--mixed</code>对于<code>HEAD</code>和索引的改动是一样的。但是，<code>--hard</code>同时也改变了工作目录。<br>所以，效果相当于这些改动，永久地消失了。</p>
+<p>在运行<code>git reset --hard</code>前，最好<code>git status</code>查看下当前的工作目录。</p>
+<p>图示：<br><img src="/images/git-reset.jpg" alt="git-reset图解"></p>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/28/Spring-Conditional注解/" rel="next" title="Spring @Conditional注解">
+                <i class="fa fa-chevron-left"></i> Spring @Conditional注解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2018/08/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/2018/08/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -463,8 +513,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -579,6 +638,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#git-reset-soft"><span class="nav-number">1.</span> <span class="nav-text">git reset --soft</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-reset-mixed"><span class="nav-number">2.</span> <span class="nav-text">git reset --mixed</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-reset-hard"><span class="nav-number">3.</span> <span class="nav-text">git reset --hard</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -709,6 +784,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
 
   
 
@@ -768,43 +847,42 @@
   
   <script>
     
-    function showTime(Counter) {
-      var entries = [];
+    function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { "$in": entries } }) })
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
         .done(function ({ results }) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.url;
-            var time = item.time;
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
           }
         })
-        .fail(function ({ responseJSON }) {
-          console.log("LeanCloud Counter Error: " + responseJSON.code + " " + responseJSON.error);
-        });
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
     }
     
 
@@ -824,9 +902,7 @@
             });
           };
           
-          if ($('.post-title-link').length >= 1) {
-            showTime(Counter);
-          }
+          addCount(Counter);
           
         })
     });
