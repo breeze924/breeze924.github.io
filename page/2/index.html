@@ -292,6 +292,221 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/Apache-Commons-Chain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晓锋">
+      <meta itemprop="description" content="没有什么干货啦">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈晓锋的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/21/Apache-Commons-Chain/" itemprop="url">
+                  Apache Commons Chain
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-21 22:09:17" itemprop="dateCreated datePublished" datetime="2018-08-21T22:09:17+08:00">2018-08-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-26 22:10:43" itemprop="dateModified" datetime="2018-08-26T22:10:43+08:00">2018-08-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Utils/" itemprop="url" rel="index"><span itemprop="name">Utils</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/21/Apache-Commons-Chain/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/21/Apache-Commons-Chain/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/21/Apache-Commons-Chain/" class="leancloud_visitors" data-flag-title="Apache Commons Chain">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Apache Commons Chain是什么</p>
+<blockquote>
+<p>Apache Commons Chain是对责任链设计模式的改造封装，让使用者更加方便的使用。</p>
+</blockquote>
+<p>责任链模式</p>
+<blockquote>
+<p>责任链模式是一种对象的行为模式。在责任链模式里，很多对象由每一个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。<br>发出这个请求的客户端并不知道链上的哪一个对象最终处理这个请求，这使得系统可以在不影响客户端的情况下动态地重新组织和分配责任。</p>
+</blockquote>
+<p>关键点：</p>
+<ul>
+<li>链上的各个节点可随意拆分和组装</li>
+</ul>
+<h4 id="Apache-Commons-Chain"><a href="#Apache-Commons-Chain" class="headerlink" title="Apache Commons Chain"></a>Apache Commons Chain</h4><blockquote>
+<p>Commons Chain实现了Chain of Responsebility和Command模式，其中的Catalog + 配置文件的方式使得调用方和Command的实现方的耦合度大大的降低，提高了灵活性。</p>
+</blockquote>
+<p><a href="http://phil-xzh.iteye.com/blog/321536" target="_blank" rel="noopener">示例</a></p>
+<p>在下面三种情况下，命令链将结束：</p>
+<ul>
+<li>命令的<code>execute</code>方法返回true</li>
+<li>运行到链的尽头</li>
+<li>命令抛出异常</li>
+</ul>
+<p>当有命令抛出错误时，链就会非正常结束。在Commons Chain中，如果有命令抛出错误，链的执行就会中断，将异常抛出给链的调用者。<br>许多应用需要对在命令之外定义的错误做明确的处理。Commons Chain提供了Filter接口来满足这个要求。</p>
+<p>Filter继承了Command，添加了一个名为postprocess的方法。</p>
+<p>只要Filter的execute方法被调用，不论链的执行过程中是否抛出错误，Commons Chain都将保证Filter的postprocess方法被调用。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/Spring-Ordered/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2151,251 +2366,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/Java并发编程实战/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈晓锋">
-      <meta itemprop="description" content="没有什么干货啦">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="陈晓锋的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/14/Java并发编程实战/" itemprop="url">
-                  Java并发编程实战
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-03-14 23:24:23" itemprop="dateCreated datePublished" datetime="2018-03-14T23:24:23+08:00">2018-03-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-08-26 22:23:38" itemprop="dateModified" datetime="2018-08-26T22:23:38+08:00">2018-08-26</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/并发编程/" itemprop="url" rel="index"><span itemprop="name">并发编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/14/Java并发编程实战/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/03/14/Java并发编程实战/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/03/14/Java并发编程实战/" class="leancloud_visitors" data-flag-title="Java并发编程实战">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Views: </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><h2 id="第一章-简介"><a href="#第一章-简介" class="headerlink" title="第一章 简介"></a>第一章 简介</h2><h2 id="第一部分-基础知识"><a href="#第一部分-基础知识" class="headerlink" title="第一部分 基础知识"></a>第一部分 基础知识</h2><p>重点章节：基础构建模块</p>
-<p>包括：</p>
-<pre><code>同步容器：Vector和HashTable
-
-并发容器：ConcurrentHashMap和CopyOnWriteArrayList等
-
-阻塞队列与 生产者消费者模式
-
-阻塞方法和中断方法
-
-同步工具类：闭锁，FutureTask，信号量，栅栏
-</code></pre><h2 id="第二部分-结构化并发应用程序"><a href="#第二部分-结构化并发应用程序" class="headerlink" title="第二部分 结构化并发应用程序"></a>第二部分 结构化并发应用程序</h2><p>介绍Task Executor 和 ThreadPoolExecutor。</p>
-<p>Executor框架将任务的提交与任务的执行策略 解耦。</p>
-<p>介绍了 任务的取消与JVM关闭</p>
-<h2 id="第三部分-活跃性、性能与测试"><a href="#第三部分-活跃性、性能与测试" class="headerlink" title="第三部分 活跃性、性能与测试"></a>第三部分 活跃性、性能与测试</h2><p>介绍死锁（锁顺序死锁、协作对象之间的死锁）、死锁避免与诊断、饥饿、活锁等。</p>
-<p>Amdahl（阿姆达尔定律）：描述的是，在增加计算资源的情况下，程序在理论上能够被实现最高加速比，取决于程序中可并行组件与串行组件所占比重。</p>
-<p>所以，需要减少锁的竞争（缩小锁的范围（集中代码块）、减小锁的粒度（多个锁保护、锁分段））</p>
-<h2 id="第四部分-高级主题（本书重点）"><a href="#第四部分-高级主题（本书重点）" class="headerlink" title="第四部分 高级主题（本书重点）"></a>第四部分 高级主题（本书重点）</h2><p>显式锁 ： Lock / ReentrantLock 结合Java源码，了解AQS/SYNC/CAS语义等。</p>
-<p>15章原子变量与非阻塞同步机制，讲述如何运用CAS，在不阻塞的情形下，完成同步。厘清CAS与阻塞同步之间的关系，适用的场景。</p>
-<p>了解，CAS在非激烈竞争情况下的性能优势（不会引起上下文切换的开销）</p>
-<p>16章内存模型（JMM），需要了解Happens-before与重排序的关系，认识到：</p>
-<p>Happens-before中的程序操作规则：“如果程序中操作A在操作B之前，那么在线程中A操作将在B操作之前执行”。</p>
-<p>“Each action in a thread happens-before every action in that thread that comes later in the program order” is trying to say is, “In a single thread, your program will runas ifit was executed in the exact order you wrote it. We might change the ordering behind the scene but we make sure that none of that would change the output.</p>
-<p>重点在于单线程中，所见的结果不会有差别。</p>
-<p>掌握延长初始化占位类模式，如下</p>
-<p>publicclassResourceFactory{</p>
-<pre><code>privatestaticResourceHolder {
-
-publicstaticResource resource =newResource();
-
-}
-
-publicstaticResourcegetResource(){
-
-returnResourceHolder.resource;
-
-}
-</code></pre><p>}</p>
-<p>了解Java提供的同步工具的灵活性与简便性</p>
-<p>Object.wait()/notify()/notifyAll() </p>
-<p>Condition.await()/signal()</p>
-<p>synchronized</p>
-<p>Lock</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2438,7 +2413,7 @@ returnResourceHolder.resource;
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2471,7 +2446,9 @@ returnResourceHolder.resource;
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2518,7 +2495,9 @@ returnResourceHolder.resource;
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
