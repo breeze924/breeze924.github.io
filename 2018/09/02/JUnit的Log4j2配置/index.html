@@ -108,27 +108,27 @@
 
 
 
-  <meta name="description" content="什么是MyBatisMyBatis是一个Java持久化框架它通过XML描述符或注解把对象与存储过程或SQL语句关联起来。 特点：与其他的ORM框架不同，MyBatis并没有将Java对象与数据库关联起来，而是将Java方法与SQL语句关联。 MyBatis允许用户充分利用数据库的各种功能，例如储存过程、视图、各种复杂的查询以及某数据库专有特性。 MyBatis支持声明式数据缓存。当一条SQL语句被">
-<meta name="keywords" content="MyBatis">
+  <meta name="description" content="原文 给JUnit测试提供不同Log4j2配置是很普遍的需求，通常有以下两种做法： 测试目录下放置log4j2-test.xml 放置log4j2-test.xml文件到src/test/resources目录下，这样可以替换log4j2.xml配置 设置log4j.configurationFile配置在@BeforeClass中配置log4j.configurationFile可以指定加载的l">
+<meta name="keywords" content="log4j2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="介绍MyBatis">
-<meta property="og:url" content="http://yoursite.com/2018/06/16/介绍MyBatis/index.html">
+<meta property="og:title" content="JUnit的Log4j2配置">
+<meta property="og:url" content="http://yoursite.com/2018/09/02/JUnit的Log4j2配置/index.html">
 <meta property="og:site_name" content="陈晓锋的学习笔记">
-<meta property="og:description" content="什么是MyBatisMyBatis是一个Java持久化框架它通过XML描述符或注解把对象与存储过程或SQL语句关联起来。 特点：与其他的ORM框架不同，MyBatis并没有将Java对象与数据库关联起来，而是将Java方法与SQL语句关联。 MyBatis允许用户充分利用数据库的各种功能，例如储存过程、视图、各种复杂的查询以及某数据库专有特性。 MyBatis支持声明式数据缓存。当一条SQL语句被">
+<meta property="og:description" content="原文 给JUnit测试提供不同Log4j2配置是很普遍的需求，通常有以下两种做法： 测试目录下放置log4j2-test.xml 放置log4j2-test.xml文件到src/test/resources目录下，这样可以替换log4j2.xml配置 设置log4j.configurationFile配置在@BeforeClass中配置log4j.configurationFile可以指定加载的l">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10779678-74964804f8f0ef36.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-08-26T14:07:00.000Z">
+<meta property="og:image" content="http://yoursite.com/images/Log4j2-Config-for-JUnit.png">
+<meta property="og:updated_time" content="2018-09-02T05:44:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="介绍MyBatis">
-<meta name="twitter:description" content="什么是MyBatisMyBatis是一个Java持久化框架它通过XML描述符或注解把对象与存储过程或SQL语句关联起来。 特点：与其他的ORM框架不同，MyBatis并没有将Java对象与数据库关联起来，而是将Java方法与SQL语句关联。 MyBatis允许用户充分利用数据库的各种功能，例如储存过程、视图、各种复杂的查询以及某数据库专有特性。 MyBatis支持声明式数据缓存。当一条SQL语句被">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/10779678-74964804f8f0ef36.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="JUnit的Log4j2配置">
+<meta name="twitter:description" content="原文 给JUnit测试提供不同Log4j2配置是很普遍的需求，通常有以下两种做法： 测试目录下放置log4j2-test.xml 放置log4j2-test.xml文件到src/test/resources目录下，这样可以替换log4j2.xml配置 设置log4j.configurationFile配置在@BeforeClass中配置log4j.configurationFile可以指定加载的l">
+<meta name="twitter:image" content="http://yoursite.com/images/Log4j2-Config-for-JUnit.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/16/介绍MyBatis/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/02/JUnit的Log4j2配置/"/>
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>介绍MyBatis | 陈晓锋的学习笔记</title>
+  <title>JUnit的Log4j2配置 | 陈晓锋的学习笔记</title>
   
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/16/介绍MyBatis/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/JUnit的Log4j2配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晓锋">
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">介绍MyBatis
+          <h1 class="post-title" itemprop="name headline">JUnit的Log4j2配置
               
             
           </h1>
@@ -337,24 +337,12 @@
                 
               
 
-              <time title="Created: 2018-06-16 22:00:24" itemprop="dateCreated datePublished" datetime="2018-06-16T22:00:24+08:00">2018-06-16</time>
+              <time title="Created: 2018-09-02 13:36:00 / Modified: 13:44:07" itemprop="dateCreated datePublished" datetime="2018-09-02T13:36:00+08:00">2018-09-02</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-08-26 22:07:00" itemprop="dateModified" datetime="2018-08-26T22:07:00+08:00">2018-08-26</time>
               
             
           </span>
@@ -371,7 +359,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据库/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
 
                 
                 
@@ -386,8 +374,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/16/介绍MyBatis/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/06/16/介绍MyBatis/" itemprop="commentCount"></span>
+                <a href="/2018/09/02/JUnit的Log4j2配置/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/02/JUnit的Log4j2配置/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -395,7 +383,7 @@
 
           
           
-             <span id="/2018/06/16/介绍MyBatis/" class="leancloud_visitors" data-flag-title="介绍MyBatis">
+             <span id="/2018/09/02/JUnit的Log4j2配置/" class="leancloud_visitors" data-flag-title="JUnit的Log4j2配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -426,38 +414,12 @@
       
 
       
-        <h1 id="什么是MyBatis"><a href="#什么是MyBatis" class="headerlink" title="什么是MyBatis"></a><a href="https://zh.wikipedia.org/wiki/MyBatis" target="_blank" rel="noopener">什么是MyBatis</a></h1><h3 id="MyBatis是一个Java持久化框架"><a href="#MyBatis是一个Java持久化框架" class="headerlink" title="MyBatis是一个Java持久化框架"></a>MyBatis是一个Java持久化框架</h3><p>它通过XML描述符或注解把对象与存储过程或SQL语句关联起来。</p>
-<p>特点：与其他的ORM框架不同，MyBatis并没有将Java对象与数据库关联起来，而是将Java方法与SQL语句关联。</p>
-<p>MyBatis允许用户充分利用数据库的各种功能，例如储存过程、视图、各种复杂的查询以及某数据库专有特性。</p>
-<p>MyBatis支持声明式数据缓存。当一条SQL语句被标记为“可缓存”后，首次执行它时从数据库获取的所有数据会被存储在一段高速缓存中，今后执行这条语句时就会从高速缓存中读取结果，而不是再次命中数据库。</p>
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>SQL语句存储在XML文件或Java注解中</p>
-<p>如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.mybatis.example</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BlogMapper</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Select</span>(<span class="string">"select * from Blog where id = #&#123;id&#125;"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="function">Blog <span class="title">selectBlog</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>执行的示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BlogMapper mapper = session.getMapper(BlogMapper.class);</span><br><span class="line">Blog blog = mapper.selectBlog(<span class="number">101</span>);</span><br></pre></td></tr></table></figure></p>
-<p>SQL语句和映射也可以外化到一个XML文件中：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"org.mybatis.example.BlogMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectBlog"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from Blog where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>执行也可以使用MyBatis API 执行语句：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Blog blog = session.selectOne(<span class="string">"org.mybatis.example.BlogMapper.selectBlog"</span>, <span class="number">101</span>);</span><br></pre></td></tr></table></figure></p>
-<h3 id="MyBatis-Generator"><a href="#MyBatis-Generator" class="headerlink" title="MyBatis Generator"></a>MyBatis Generator</h3><p>MyBatis Generator是一个可以用来生成MyBatis dao,entity,mapper文件的一个工具。</p>
-<h1 id="JPA与MyBatis"><a href="#JPA与MyBatis" class="headerlink" title="JPA与MyBatis"></a>JPA与MyBatis</h1><p>JPA是一套规范，它的出现是为了结束Hibernate、TopLink、JDO等ORM框架的各自为营的局面。主流的ORM框架都实现了JPA标准。</p>
-<p>MyBatis没有实现JPA。可以说，MyBatis是SQL Mapping框架。<br>MyBatis和ORM都是持久化框架。</p>
-<h1 id="MyBatis主要构件及其相互关系"><a href="#MyBatis主要构件及其相互关系" class="headerlink" title="MyBatis主要构件及其相互关系"></a>MyBatis主要构件及其相互关系</h1><p>从MyBatis代码实现的角度来看，MyBatis的主要的核心部件有以下几个：</p>
-<ul>
-<li>SqlSession            作为MyBatis工作的主要顶层API，表示和数据库交互的会话，完成必要数据库增删改查功能</li>
-<li>Executor              MyBatis执行器，是MyBatis 调度的核心，负责SQL语句的生成和查询缓存的维护</li>
-<li>StatementHandler   封装了JDBC Statement操作，负责对JDBC statement 的操作，如设置参数、将Statement结果集转换成List集合。</li>
-<li>ParameterHandler   负责对用户传递的参数转换成JDBC Statement 所需要的参数，</li>
-<li>ResultSetHandler    负责将JDBC返回的ResultSet结果集对象转换成List类型的集合；</li>
-<li>TypeHandler          负责java数据类型和jdbc数据类型之间的映射和转换</li>
-<li>MappedStatement   MappedStatement维护了一条&lt;select|update|delete|insert&gt;节点的封装</li>
-<li>SqlSource            负责根据用户传递的parameterObject，动态地生成SQL语句，将信息封装到BoundSql对象中，并返回</li>
-<li>BoundSql             表示动态生成的SQL语句以及相应的参数信息</li>
-<li>Configuration        MyBatis所有的配置信息都维持在Configuration对象之中。</li>
-</ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/10779678-74964804f8f0ef36.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>收集自</p>
-<ul>
-<li><a href="https://zh.wikipedia.org/wiki/MyBatis" target="_blank" rel="noopener">WIKI</a></li>
-<li><a href="https://blog.csdn.net/luanlouis/article/details/40422941" target="_blank" rel="noopener">《深入理解mybatis原理》 MyBatis的架构设计以及实例分析</a></li>
-</ul>
-
+        <p><a href="https://howtodoinjava.com/log4j2/configure-log4j2-for-junit/" target="_blank" rel="noopener">原文</a></p>
+<p>给JUnit测试提供不同Log4j2配置是很普遍的需求，通常有以下两种做法：</p>
+<h3 id="测试目录下放置log4j2-test-xml"><a href="#测试目录下放置log4j2-test-xml" class="headerlink" title="测试目录下放置log4j2-test.xml"></a>测试目录下放置<code>log4j2-test.xml</code></h3><p><img src="/images/Log4j2-Config-for-JUnit.png" alt="Log4j2-Config-for-JUnit"></p>
+<p>放置<code>log4j2-test.xml</code>文件到<code>src/test/resources</code>目录下，这样可以替换<code>log4j2.xml</code>配置</p>
+<h3 id="设置log4j-configurationFile配置"><a href="#设置log4j-configurationFile配置" class="headerlink" title="设置log4j.configurationFile配置"></a>设置<code>log4j.configurationFile</code>配置</h3><p>在<code>@BeforeClass</code>中配置<code>log4j.configurationFile</code>可以指定加载的log4j配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.MalformedURLException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.junit.BeforeClass;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger LOGGER = <span class="keyword">null</span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@BeforeClass</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setLogger</span><span class="params">()</span> <span class="keyword">throws</span> MalformedURLException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.setProperty(<span class="string">"log4j.configurationFile"</span>,<span class="string">"log4j2-testConfig.xml"</span>);</span><br><span class="line">        LOGGER = LogManager.getLogger();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOne</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        LOGGER.debug(<span class="string">"Debug Message Logged !!!"</span>);</span><br><span class="line">        LOGGER.info(<span class="string">"Info Message Logged !!!"</span>);</span><br><span class="line">        LOGGER.error(<span class="string">"Error Message Logged !!!"</span>, <span class="keyword">new</span> NullPointerException(<span class="string">"NullError"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -477,7 +439,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MyBatis/" rel="tag"># MyBatis</a>
+            <a href="/tags/log4j2/" rel="tag"># log4j2</a>
           
         </div>
       
@@ -490,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/14/Java并发编程实战/" rel="next" title="Java并发编程实战">
-                <i class="fa fa-chevron-left"></i> Java并发编程实战
+              <a href="/2018/09/02/《调试九法》总体规则/" rel="next" title="《调试九法》总体规则">
+                <i class="fa fa-chevron-left"></i> 《调试九法》总体规则
               </a>
             
           </div>
@@ -500,8 +462,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/" rel="prev" title="log4j2不使用配置文件，动态生成logger对象">
-                log4j2不使用配置文件，动态生成logger对象 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/03/MyBatis中SqlSessionFactory和SqlSession/" rel="prev" title="MyBatis中SqlSessionFactory和SqlSession.md">
+                MyBatis中SqlSessionFactory和SqlSession.md <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -691,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是MyBatis"><span class="nav-number">1.</span> <span class="nav-text">什么是MyBatis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis是一个Java持久化框架"><span class="nav-number">1.0.1.</span> <span class="nav-text">MyBatis是一个Java持久化框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">1.0.2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis-Generator"><span class="nav-number">1.0.3.</span> <span class="nav-text">MyBatis Generator</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JPA与MyBatis"><span class="nav-number">2.</span> <span class="nav-text">JPA与MyBatis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MyBatis主要构件及其相互关系"><span class="nav-number">3.</span> <span class="nav-text">MyBatis主要构件及其相互关系</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试目录下放置log4j2-test-xml"><span class="nav-number">1.</span> <span class="nav-text">测试目录下放置log4j2-test.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置log4j-configurationFile配置"><span class="nav-number">2.</span> <span class="nav-text">设置log4j.configurationFile配置</span></a></li></ol></div>
             
 
           </div>
