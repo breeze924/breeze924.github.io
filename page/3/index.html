@@ -292,6 +292,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/log4j2不使用配置文件，动态生成logger对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈晓锋">
+      <meta itemprop="description" content="没有什么干货啦">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈晓锋的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/" itemprop="url">
+                  log4j2不使用配置文件，动态生成logger对象
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-06 21:19:14" itemprop="dateCreated datePublished" datetime="2018-08-06T21:19:14+08:00">2018-08-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-26 22:25:37" itemprop="dateModified" datetime="2018-08-26T22:25:37+08:00">2018-08-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Utils/" itemprop="url" rel="index"><span itemprop="name">Utils</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/" class="leancloud_visitors" data-flag-title="log4j2不使用配置文件，动态生成logger对象">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.cnblogs.com/0201zcr/p/5726072.html" target="_blank" rel="noopener">https://www.cnblogs.com/0201zcr/p/5726072.html</a></p>
+<h1 id="Log4j的组成："><a href="#Log4j的组成：" class="headerlink" title="Log4j的组成："></a>Log4j的组成：</h1><p>Log4j的三个重要组成：</p>
+<ol>
+<li>日志记录器（Loggers）</li>
+<li>输出端（Appenders）</li>
+<li>日志格式化器（Layout）</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">org.apache.logging.log4j.core.Layout负责格式</span><br><span class="line">org.apache.logging.log4j.core.Appender就是配置文件里的Appender，我们使用FileAppender，也可以使用RollingFileAppender，</span><br><span class="line">org.apache.logging.log4j.core.config.Configuration和org.apache.logging.log4j.core.LoggerContext是负责Log4j的配置的。</span><br></pre></td></tr></table></figure>
+<h2 id="LoggerContext"><a href="#LoggerContext" class="headerlink" title="LoggerContext"></a>LoggerContext</h2><p>在日志系统中，LoggerContext有重要的作用，根据实际情况，一个应用可能存在多个有效的LoggerContext。</p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>每一个LoggerContext都有一个有效的Configuration。在重新配置期间，两个Configuration会同时存在；一旦日志器被重新赋予新的Configuration，旧的Configuration就会停止工作并丢弃。</p>
+<blockquote>
+<p>The LoggerContext is the anchor for the logging system. It maintains a list of all the loggers requested by applications and a reference to the Configuration. The Configuration will contain the configured loggers, appenders, filters, etc and will be atomically updated whenever a reconfigure occurs.</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/16/介绍MyBatis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -785,7 +988,7 @@ returnResourceHolder.resource;
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -822,7 +1025,9 @@ returnResourceHolder.resource;
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -873,7 +1078,9 @@ returnResourceHolder.resource;
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

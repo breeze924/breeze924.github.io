@@ -108,25 +108,27 @@
 
 
 
-  <meta name="description" content="https://www.cnblogs.com/0201zcr/p/5726072.html Log4j的组成：Log4j的三个重要组成：  日志记录器（Loggers） 输出端（Appenders） 日志格式化器（Layout）  123org.apache.logging.log4j.core.Layout负责格式org.apache.logging.log4j.core.Appender就是">
-<meta name="keywords" content="log4j2,logger">
+  <meta name="description" content="线程状态图 新建新建（new）：新创建一个线程对象 可运行可运行（runnable）: 线程对象创建后，其他对象调用了该对象的start()方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取CPU的使用权。 运行可运行状态（runnable）的线程获得了CPU时间片(timeslice)，执行程序代码。 阻塞阻塞状态(blocked)是指线程因为某种原因放弃了CPU使用权。情况分为三种">
+<meta name="keywords" content="线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="log4j2不使用配置文件，动态生成logger对象">
-<meta property="og:url" content="http://yoursite.com/2018/08/06/log4j2不使用配置文件，动态生成logger对象/index.html">
+<meta property="og:title" content="Java线程状态">
+<meta property="og:url" content="http://yoursite.com/2018/09/10/Java线程状态/index.html">
 <meta property="og:site_name" content="陈晓锋的学习笔记">
-<meta property="og:description" content="https://www.cnblogs.com/0201zcr/p/5726072.html Log4j的组成：Log4j的三个重要组成：  日志记录器（Loggers） 输出端（Appenders） 日志格式化器（Layout）  123org.apache.logging.log4j.core.Layout负责格式org.apache.logging.log4j.core.Appender就是">
+<meta property="og:description" content="线程状态图 新建新建（new）：新创建一个线程对象 可运行可运行（runnable）: 线程对象创建后，其他对象调用了该对象的start()方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取CPU的使用权。 运行可运行状态（runnable）的线程获得了CPU时间片(timeslice)，执行程序代码。 阻塞阻塞状态(blocked)是指线程因为某种原因放弃了CPU使用权。情况分为三种">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-26T14:25:37.000Z">
+<meta property="og:image" content="http://yoursite.com/2018/09/10/Java线程状态/images/java线程状态.jpeg">
+<meta property="og:updated_time" content="2018-09-10T15:36:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="log4j2不使用配置文件，动态生成logger对象">
-<meta name="twitter:description" content="https://www.cnblogs.com/0201zcr/p/5726072.html Log4j的组成：Log4j的三个重要组成：  日志记录器（Loggers） 输出端（Appenders） 日志格式化器（Layout）  123org.apache.logging.log4j.core.Layout负责格式org.apache.logging.log4j.core.Appender就是">
+<meta name="twitter:title" content="Java线程状态">
+<meta name="twitter:description" content="线程状态图 新建新建（new）：新创建一个线程对象 可运行可运行（runnable）: 线程对象创建后，其他对象调用了该对象的start()方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取CPU的使用权。 运行可运行状态（runnable）的线程获得了CPU时间片(timeslice)，执行程序代码。 阻塞阻塞状态(blocked)是指线程因为某种原因放弃了CPU使用权。情况分为三种">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/10/Java线程状态/images/java线程状态.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/06/log4j2不使用配置文件，动态生成logger对象/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/10/Java线程状态/"/>
 
 
 
@@ -136,7 +138,7 @@
   };
 </script>
 
-  <title>log4j2不使用配置文件，动态生成logger对象 | 陈晓锋的学习笔记</title>
+  <title>Java线程状态 | 陈晓锋的学习笔记</title>
   
 
 
@@ -293,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/log4j2不使用配置文件，动态生成logger对象/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/Java线程状态/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈晓锋">
@@ -310,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">log4j2不使用配置文件，动态生成logger对象
+          <h1 class="post-title" itemprop="name headline">Java线程状态
               
             
           </h1>
@@ -335,24 +337,12 @@
                 
               
 
-              <time title="Created: 2018-08-06 21:19:14" itemprop="dateCreated datePublished" datetime="2018-08-06T21:19:14+08:00">2018-08-06</time>
+              <time title="Created: 2018-09-10 23:09:55 / Modified: 23:36:52" itemprop="dateCreated datePublished" datetime="2018-09-10T23:09:55+08:00">2018-09-10</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-08-26 22:25:37" itemprop="dateModified" datetime="2018-08-26T22:25:37+08:00">2018-08-26</time>
               
             
           </span>
@@ -369,7 +359,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Utils/" itemprop="url" rel="index"><span itemprop="name">Utils</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/线程/" itemprop="url" rel="index"><span itemprop="name">线程</span></a></span>
 
                 
                 
@@ -384,8 +381,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/" itemprop="commentCount"></span>
+                <a href="/2018/09/10/Java线程状态/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/10/Java线程状态/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -393,7 +390,7 @@
 
           
           
-             <span id="/2018/08/06/log4j2不使用配置文件，动态生成logger对象/" class="leancloud_visitors" data-flag-title="log4j2不使用配置文件，动态生成logger对象">
+             <span id="/2018/09/10/Java线程状态/" class="leancloud_visitors" data-flag-title="Java线程状态">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -424,19 +421,17 @@
       
 
       
-        <p><a href="https://www.cnblogs.com/0201zcr/p/5726072.html" target="_blank" rel="noopener">https://www.cnblogs.com/0201zcr/p/5726072.html</a></p>
-<h1 id="Log4j的组成："><a href="#Log4j的组成：" class="headerlink" title="Log4j的组成："></a>Log4j的组成：</h1><p>Log4j的三个重要组成：</p>
-<ol>
-<li>日志记录器（Loggers）</li>
-<li>输出端（Appenders）</li>
-<li>日志格式化器（Layout）</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">org.apache.logging.log4j.core.Layout负责格式</span><br><span class="line">org.apache.logging.log4j.core.Appender就是配置文件里的Appender，我们使用FileAppender，也可以使用RollingFileAppender，</span><br><span class="line">org.apache.logging.log4j.core.config.Configuration和org.apache.logging.log4j.core.LoggerContext是负责Log4j的配置的。</span><br></pre></td></tr></table></figure>
-<h2 id="LoggerContext"><a href="#LoggerContext" class="headerlink" title="LoggerContext"></a>LoggerContext</h2><p>在日志系统中，LoggerContext有重要的作用，根据实际情况，一个应用可能存在多个有效的LoggerContext。</p>
-<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>每一个LoggerContext都有一个有效的Configuration。在重新配置期间，两个Configuration会同时存在；一旦日志器被重新赋予新的Configuration，旧的Configuration就会停止工作并丢弃。</p>
-<blockquote>
-<p>The LoggerContext is the anchor for the logging system. It maintains a list of all the loggers requested by applications and a reference to the Configuration. The Configuration will contain the configured loggers, appenders, filters, etc and will be atomically updated whenever a reconfigure occurs.</p>
-</blockquote>
+        <h3 id="线程状态图"><a href="#线程状态图" class="headerlink" title="线程状态图"></a>线程状态图</h3><p><img src="images/java线程状态.jpeg" alt="Java线程状态图"></p>
+<h4 id="新建"><a href="#新建" class="headerlink" title="新建"></a>新建</h4><p>新建（new）：新创建一个线程对象</p>
+<h4 id="可运行"><a href="#可运行" class="headerlink" title="可运行"></a>可运行</h4><p>可运行（runnable）: 线程对象创建后，其他对象调用了该对象的start()方法。该状态的线程位于<em>可运行线程池</em>中，等待被线程调度选中，获取CPU的使用权。</p>
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><p>可运行状态（runnable）的线程获得了CPU时间片(timeslice)，执行程序代码。</p>
+<h4 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h4><p>阻塞状态(blocked)是指线程因为某种原因放弃了CPU使用权。情况分为三种：</p>
+<ul>
+<li>等待阻塞：运行线程执行o.wait()方法，JVM会把该线程放入等待队列(waiting queue)中。</li>
+<li>同步阻塞：运行线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池(lock pool)中。</li>
+<li>其他阻塞：运行线程执行<code>Thread.sleep(long ms)</code>或<code>t.join()</code>方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、I/O处理完毕时，线程重新转入可运行(runnable)状态</li>
+</ul>
+<h4 id="死亡"><a href="#死亡" class="headerlink" title="死亡"></a>死亡</h4><p>线程run()、main()方法执行结束，或者因异常退出了run()方法，则该线程结束生命周期(terminated)。死亡线程不可再次复生。</p>
 
       
     </div>
@@ -457,9 +452,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/log4j2/" rel="tag"># log4j2</a>
-          
-            <a href="/tags/logger/" rel="tag"># logger</a>
+            <a href="/tags/线程/" rel="tag"># 线程</a>
           
         </div>
       
@@ -472,8 +465,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/16/介绍MyBatis/" rel="next" title="介绍MyBatis">
-                <i class="fa fa-chevron-left"></i> 介绍MyBatis
+              <a href="/2018/09/05/Java-Queue分析/" rel="next" title="Java Queue分析">
+                <i class="fa fa-chevron-left"></i> Java Queue分析
               </a>
             
           </div>
@@ -481,10 +474,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/08/ApplicationReadyEvent/" rel="prev" title="ApplicationReadyEvent">
-                ApplicationReadyEvent <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -685,7 +674,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Log4j的组成："><span class="nav-number">1.</span> <span class="nav-text">Log4j的组成：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LoggerContext"><span class="nav-number">1.1.</span> <span class="nav-text">LoggerContext</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuration"><span class="nav-number">1.2.</span> <span class="nav-text">Configuration</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程状态图"><span class="nav-number">1.</span> <span class="nav-text">线程状态图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建"><span class="nav-number">1.1.</span> <span class="nav-text">新建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可运行"><span class="nav-number">1.2.</span> <span class="nav-text">可运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行"><span class="nav-number">1.3.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阻塞"><span class="nav-number">1.4.</span> <span class="nav-text">阻塞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#死亡"><span class="nav-number">1.5.</span> <span class="nav-text">死亡</span></a></li></ol></li></ol></div>
             
 
           </div>
